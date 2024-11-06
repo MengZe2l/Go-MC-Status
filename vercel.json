@@ -28,6 +28,10 @@
         "Access-Control-Allow-Methods": "GET",
         "Access-Control-Allow-Headers": "Content-Type"
       }
-    }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1"
+}
   ]
 }
