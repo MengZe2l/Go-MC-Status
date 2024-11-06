@@ -2,7 +2,11 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/*.go",
+      "src": "api/java.go",
+      "use": "@vercel/go"
+    },
+    {
+      "src": "api/bedrock.go",
       "use": "@vercel/go"
     }
   ],
