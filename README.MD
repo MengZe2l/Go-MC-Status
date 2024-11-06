@@ -1,6 +1,5 @@
-;;;tip
-技术问题导致项目目前无法使用，望大佬修复并放在issues里面
-;;;
+> [!TIP]
+> 技术问题导致项目目前无法使用，望大佬修复并放在issues里面
 
 ## Go-MC-Status
 一个使用Golang编写的使用Vercel云函数的Minecraft服务器状态查询工具+API，内置了API文档，自己按需修改。
