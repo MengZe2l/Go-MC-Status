@@ -14,8 +14,6 @@
 - Vercel Cloud Function
 
 ## Demo
-访问：https://mcstatus.zeimg.top/
-
 截图：
 ![Demo图片](/demo_image/Screenshot_2024_1106_104151.png)
 
