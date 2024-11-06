@@ -19,3 +19,6 @@ func parseHostPort(hostPort string, defaultPort int) (string, int, error) {
     }
     return host, port, nil
 }
+
+// Init 占位符函数，以满足 Vercel 的要求
+func Init() {}
