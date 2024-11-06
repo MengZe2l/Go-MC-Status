@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minecraft Server Status</title>
+  <!-- 引入 Tailwind CSS -->
+  <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <div class="container mx-auto p-4">
+    <!-- 标题和导航 -->
+    <div class="flex justify-between items-center mb-8">
+      <h1 class="text-2xl font-bold">Minecraft 服务器状态</h1>
+      <a href="api-doc.html" class="text-indigo-600 hover:underline">API 文档</a>
+    </div>
+
+    <!-- 查询表单 -->
+    <div class="bg-white shadow-md rounded-lg p-6 max-w-md mx-auto">
+      <form id="serverForm">
+        <label for="serverType" class="block text-lg font-semibold mb-2">选择服务器版本:</label>
+        <div class="flex mb-4">
+          <label class="flex items-center mr-4">
+            <input type="radio" name="serverType" value="java" class="form-radio h-4 w-4 text-indigo-600" checked>
+            <span class="ml-2">Java 版</span>
+          </label>
+          <label class="flex items-center">
+            <input type="radio" name="serverType" value="bedrock" class="form-radio h-4 w-4 text-indigo-600">
+            <span class="ml-2">基岩版</span>
+          </label>
+        </div>
+
+        <label for="serverAddress" class="block text-lg font-semibold mb-2">服务器地址:</label>
+        <input type="text" id="serverAddress" class="border border-gray-300 rounded w-full p-2 mb-4" placeholder="例如: example.com:25565" required>
+
+        <button type="submit" class="w-full bg-indigo-600 text-white p-2 rounded hover:bg-indigo-700">查询</button>
+      </form>
+    </div>
+
+    <!-- 结果展示 -->
+    <div id="result" class="mt-8 max-w-md mx-auto hidden">
+      <h2 class="text-xl font-bold mb-4">服务器状态</h2>
+      <pre id="resultContent" class="bg-gray-900 text-white rounded-lg p-4 overflow-auto"></pre>
+    </div>
+  </div>
+
+  <!-- 脚本 -->
+  <script>
+    document.getElementById('serverForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+      const serverType = document.querySelector('input[name="serverType"]:checked').value;
+      const serverAddress = document.getElementById('serverAddress').value.trim();
+
+      if (!serverAddress) {
+        alert("请输入服务器地址");
+        return;
+      }
+
+      // 构造 API URL
+      const apiUrl = `/${serverType}/${serverAddress}`;
+      try {
+        // 发送请求
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+          throw new Error(`服务器错误: ${response.statusText}`);
+        }
+
+        // 解析 JSON 并展示结果
+        const data = await response.json();
+        document.getElementById('resultContent').textContent = JSON.stringify(data, null, 2);
+        document.getElementById('result').classList.remove('hidden');
+      } catch (error) {
+        alert("查询失败: " + error.message);
+      }
+    });
+  </script>
+</body>
+</html>
